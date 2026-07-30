@@ -35,17 +35,32 @@ def git_log(repo_path: str, limit: int = 10) -> str:
     """
  
     result = subprocess.run(
-        ["git", "-C", repo_path, "log", f"-{limit}", "--online", "--decorate"],
+        ["git", "-C", repo_path, "log", f"-{limit}", "--oneline", "--decorate"],
         capture_output=True,
         text=True,
-        check=False,    
+        check=False,
     )
     if result.returncode != 0:
         return f"Error: {result.stderr.strip()}"
     return result.stdout.strip()
 
 # TODO: `git_diff` — diff parametrizado por ref ou range (~25 min)
+@mcp.tool()
+def git_diff(repo_path: str) -> str:
+    """ Show changes between commits, commit and working tree.
 
+    args:
+        repo_path: Absolute path to the git repository
+    """
+    result = subprocess.run(
+        ["git", "-C", repo_path, "diff"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return f"ERROR: {result.stderr.strip()}"
+    return result.stdout.strip()
 
 if __name__ == "__main__":
     mcp.run()

@@ -1,0 +1,10 @@
+[project]
+name = "mcp-git-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastmcp>=3.4.5",
+    "mcp[cli]>=1.29.0",
+]
